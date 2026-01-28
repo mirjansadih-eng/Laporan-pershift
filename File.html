@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Laporan Shift Otomatis</title>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  max-width: 500px;
+  margin: auto;
+}
+input, button {
+  width: 100%;
+  padding: 8px;
+  margin: 4px 0;
+}
+textarea {
+  width: 100%;
+  height: 260px;
+}
+button {
+  background: #2ecc71;
+  border: none;
+  color: white;
+  font-weight: bold;
+}
+</style>
+</head>
+<body>
+
+<h3>📋 Laporan Shift</h3>
+
+<input id="shift" placeholder="Shift (contoh: Shift 2)">
+<input id="kasir" placeholder="Nama Kasir">
+<input id="penjabat" placeholder="Nama Penjabat">
+
+<hr>
+
+<input id="psm_t" placeholder="PSM Target">
+<input id="psm_r" placeholder="PSM Realisasi">
+
+<input id="pwp_t" placeholder="PWP Target">
+<input id="pwp_r" placeholder="PWP Realisasi">
+
+<input id="sertis_t" placeholder="Sertis Target">
+<input id="sertis_r" placeholder="Sertis Realisasi">
+
+<input id="2500_t" placeholder="2500 Target">
+<input id="2500_r" placeholder="2500 Realisasi">
+
+<input id="telur_t" placeholder="Telur Target">
+<input id="telur_r" placeholder="Telur Realisasi">
+
+<input id="member_t" placeholder="New Member Target">
+<input id="member_r" placeholder="New Member Realisasi">
+
+<input id="murah_t" placeholder="Murah Sejagad Target">
+<input id="murah_r" placeholder="Murah Sejagad Realisasi">
+
+<input id="ev_t" placeholder="E-Voucher Target">
+<input id="ev_r" placeholder="E-Voucher Realisasi">
+
+<button onclick="buatLaporan()">BUAT LAPORAN</button>
+
+<textarea id="hasil" placeholder="Hasil laporan muncul di sini..."></textarea>
+
+<button onclick="copyText()">COPY KE WA</button>
+
+<script>
+function persen(real, target) {
+  if (target == 0) return 0;
+  return Math.round((real / target) * 100);
+}
+
+function buatLaporan() {
+  let laporan = `
+*Format laporan*
+${shift.value}
+- Nama kasir : ${kasir.value}
+- Nama penjabat : ${penjabat.value}
+- ===================
+- Psm : ${psm_r.value}/${psm_t.value}/${persen(psm_r.value, psm_t.value)}%
+- Pwp : ${pwp_r.value}/${pwp_t.value}/${persen(pwp_r.value, pwp_t.value)}%
+- Sertis : ${sertis_r.value}/${sertis_t.value}/${persen(sertis_r.value, sertis_t.value)}%
+- 2500 : ${document.getElementById("2500_r").value}/${document.getElementById("2500_t").value}/${persen(document.getElementById("2500_r").value, document.getElementById("2500_t").value)}%
+- Telur : ${telur_r.value}/${telur_t.value}/${persen(telur_r.value, telur_t.value)}%
+- New Member/${member_r.value}/${member_t.value}/${persen(member_r.value, member_t.value)}%
+- Murah sejagad/${murah_r.value}/${murah_t.value}/${persen(murah_r.value, murah_t.value)}%
+- evocher target sesuai toko ${ev_t.value}/${ev_r.value}/${persen(ev_r.value, ev_t.value)}%
+
+Demikian Terima kasih
+  `;
+  hasil.value = laporan.trim();
+}
+
+function copyText() {
+  hasil.select();
+  document.execCommand("copy");
+  alert("Laporan berhasil di-copy 👍");
+}
+</script>
+
+</body>
+</html>
